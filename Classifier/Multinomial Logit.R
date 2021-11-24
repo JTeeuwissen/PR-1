@@ -25,8 +25,8 @@ multinom <- function(features, labels) {
   
   # Create the confusion matrix
   confusion_matrix <- table(
-    Class = data$label,
-    Pred = predicted_labels
+    Class = labels,
+    Pred = factor(predicted_labels, levels = 0:9)
   )
 }
 
