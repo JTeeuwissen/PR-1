@@ -5,4 +5,4 @@ print_image <- function(data) {
   matrix <- matrix(as.numeric(data), nrow = 28, ncol = 28)
   image(matrix, col = grey(seq(1, 0, length = 256)), xaxt = "n", yaxt = "n")
 }
-print_image(data[380, 2:785])
+print_image(data[380, -1])
