@@ -29,13 +29,3 @@ print_data_summary <- function() {
 }
 
 print_data_summary()
-
-ink <- function(pixels) {
-    return(sum(pixels))
-}
-
-print_ink_summary <- function(){
-    apply(data[,-1], 1, sum)
-}
-
-print_ink_summary()
