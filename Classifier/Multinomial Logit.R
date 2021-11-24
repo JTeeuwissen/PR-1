@@ -5,8 +5,8 @@ multinom <- function(features, labels) {
   
   # Multinominal Logit with lasso penalty
   train_glmnet <- cv.glmnet(
-    cbind(scale(ink), scale(ink)),
-    data$label,
+    features,
+    labels,
     family = "multinomial",
     type.measure = "class"
   )
@@ -18,13 +18,16 @@ multinom <- function(features, labels) {
   # Make predictions on the test set.
   predicted_labels <- predict(
     train_glmnet,
-    cbind(scale(ink), scale(ink)),
+    features,
     s = lambda,
     type = "class"
   )
   
   # Create the confusion matrix
-  confusion_matrix <- table(data$label, predicted_labels)
+  confusion_matrix <- table(
+    Class = data$label,
+    Pred = predicted_labels
+  )
 }
 
 confusion_matrix <- multinom(
@@ -36,4 +39,4 @@ confusion_matrix <- multinom(
 print(confusion_matrix)
 
 # Compute accuracy on test data
-print(sum(diag(confusion_matrix)) / sum(confusion_matrix))
+print(paste0("accuracy: ", sum(diag(confusion_matrix)) / sum(confusion_matrix)))
