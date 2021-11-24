@@ -5,6 +5,12 @@ library(dplyr)
 data <- read.csv("./data/mnist.csv")
 # Convert the label to a categorical variable.
 data$label <- as.factor(data$label)
+# Compute the total ink cost per sample.
+ink <- rowSums(data[-1])
+# Compute the mean value of ink for each digit.
+digits_ink_mean <- tapply(ink, data$label, mean)
+# Compute the standard deviation of ink cost for each digit.
+digits_ink_sd <- tapply(ink, data$label, sd)
 
 print_data_summary <- function() {
     print("Class distribution:")
