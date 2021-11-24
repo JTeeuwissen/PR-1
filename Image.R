@@ -2,7 +2,13 @@
 #'
 #' @param data A data frame segment
 print_image <- function(data) {
-  matrix <- matrix(as.numeric(data), nrow = 28, ncol = 28)
-  image(matrix, col = grey(seq(1, 0, length = 256)), xaxt = "n", yaxt = "n")
+  matrix <- t(
+    apply(
+      matrix(as.numeric(data), nrow = 28, ncol = 28, byrow = TRUE),
+      2,
+      rev
+    )
+  )
+  image(matrix, col = grey(seq(1, 0, length = 256)), axes = FALSE)
 }
 print_image(data[380, -1])
