@@ -1,4 +1,9 @@
-
+#' Turn a row into a matrix of pixel values
+#'
+#' @param data A data frame segment
+row_to_matrix <- function(data) {
+  matrix(as.numeric(data), nrow = 28, ncol = 28, byrow = TRUE)
+}
 
 #' Print an image from a data frame segment
 #'

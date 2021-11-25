@@ -1,3 +1,6 @@
+#' Sum the difference from the surrounding 9 pixels for each pixel.
+#'
+#' @param data A matrix of pixel values.
 edge_function <- function(data) {
   matrix <- row_to_matrix(data)
 
