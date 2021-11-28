@@ -5,8 +5,8 @@ multinom <- function(features, labels) {
 
   # Multinominal Logit with lasso penalty
   train_glmnet <- cv.glmnet(
-    features,
-    labels,
+    features[train_indices, ],
+    labels[train_indices],
     family = "multinomial",
     type.measure = "class"
   )
@@ -18,14 +18,14 @@ multinom <- function(features, labels) {
   # Make predictions on the test set.
   predicted_labels <- predict(
     train_glmnet,
-    features,
+    features[-train_indices, ],
     s = lambda,
     type = "class"
   )
 
   # Create the confusion matrix
   confusion_matrix <- table(
-    Class = labels,
+    Class = labels[-train_indices],
     Pred = factor(predicted_labels, levels = 0:9)
   )
 }
