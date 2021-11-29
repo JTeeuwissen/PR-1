@@ -1,14 +1,14 @@
 library(e1071)
 
 SVM <- function(features, labels) {
-  
+
   # SVM with radial kernel and gamma=1/62
   train_svm <- tune.svm(
     features[train_indices, ],
     labels[train_indices],
     cost = 1:5
   )
-  
+
   # Hyperparameter tuning
   # Choose the cost value that gives the smallest cross-validation error
   tuned_svm <- svm(
@@ -16,7 +16,7 @@ SVM <- function(features, labels) {
     labels[train_indices],
     cost = train_svm$best.parameters
   )
-  
+
   # Make predictions on the test set.
   predicted_labels <- predict(
     tuned_svm,

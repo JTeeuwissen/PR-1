@@ -30,8 +30,15 @@ multinom <- function(features, labels) {
   )
 }
 
+# ink and rowchange
 confusion_matrix <- multinom(
   features = cbind(scale(ink), scale(row_change)),
+  labels = data$label
+)
+
+# using all cells
+confusion_matrix <- multinom(
+  features = data.matrix(data[-1]),
   labels = data$label
 )
 
