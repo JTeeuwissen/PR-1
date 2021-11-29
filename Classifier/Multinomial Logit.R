@@ -31,7 +31,7 @@ multinom <- function(features, labels) {
 }
 
 confusion_matrix <- multinom(
-  features = cbind(scale(ink), scale(edge)),
+  features = cbind(scale(ink), scale(row_change)),
   labels = data$label
 )
 
