@@ -1,26 +1,26 @@
-library(nnet)
-library(glmnet)
+library(e1071)
 
-multinom <- function(features, labels) {
-
-  # Multinominal Logit with lasso penalty
-  train_glmnet <- cv.glmnet(
+SVM <- function(features, labels) {
+  
+  # SVM with radial kernel and gamma=1/62
+  train_svm <- tune.svm(
     features[train_indices, ],
     labels[train_indices],
-    family = "multinomial",
-    type.measure = "class"
+    cost = 1:5
   )
-
+  
   # Hyperparameter tuning
-  # Choose the lambda value that gives the smallest cross-validation error
-  lambda <- train_glmnet$lambda.min
-
+  # Choose the cost value that gives the smallest cross-validation error
+  tuned_svm <- svm(
+    features[train_indices, ],
+    labels[train_indices],
+    cost = train_svm$best.parameters
+  )
+  
   # Make predictions on the test set.
   predicted_labels <- predict(
-    train_glmnet,
-    features[-train_indices, ],
-    s = lambda,
-    type = "class"
+    tuned_svm,
+    features[-train_indices, ]
   )
 
   # Create the confusion matrix
@@ -30,8 +30,8 @@ multinom <- function(features, labels) {
   )
 }
 
-confusion_matrix <- multinom(
-  features = cbind(scale(ink), scale(row_change)),
+confusion_matrix <- SVM(
+  features = cbind(scale(ink), scale(edge)),
   labels = data$label
 )
 

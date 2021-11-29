@@ -8,6 +8,9 @@ data <- read.csv("mnist.csv")
 # Convert the label to a categorical variable.
 data$label <- as.factor(data$label)
 
+# Split the data into training and test set
+train_indices = sample(nrow(data), 5000)
+
 # Compute the total ink cost per sample.
 ink <- rowSums(data[-1])
 
