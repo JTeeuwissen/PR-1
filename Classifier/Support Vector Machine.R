@@ -38,7 +38,7 @@ SVM <- function(train_features, train_labels, test_features, test_label) {
   )
 }
 
-confusion_matrix <- multinom(
+confusion_matrix <- SVM(
   train_features = as.matrix(train_set[-1]),
   train_labels = train_set$label,
   test_features = as.matrix(test_set[-1]),
