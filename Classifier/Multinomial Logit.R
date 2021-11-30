@@ -34,7 +34,7 @@ multinom <- function(train_features, train_labels, test_features, test_label) {
   # Create the confusion matrix
   confusion_matrix <- table(
     Class = test_label,
-    Pred = factor(predicted_labels, levels = 0:9)
+    Obs = factor(predicted_labels, levels = 0:9)
   )
 }
 

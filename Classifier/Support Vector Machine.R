@@ -10,30 +10,23 @@ library(e1071)
 #' @return A confusion matrix
 SVM <- function(train_features, train_labels, test_features, test_label) {
 
-  # SVM with radial kernel and gamma=1/62
-  train_svm <- tune.svm(
+  # Train SVM with gamma=1/62 and cost=1 (default values)
+  train_svm <- svm(
     train_features,
     train_labels,
-    cost = 1:5
-  )
-
-  # Hyperparameter tuning
-  # Choose the cost value that gives the smallest cross-validation error
-  tuned_svm <- svm(
-    train_features,
-    train_labels,
-    cost = train_svm$best.parameters
+    kernel = "linear",
+    scale = F
   )
 
   # Make predictions on the test set.
   predicted_labels <- predict(
-    tuned_svm,
+    train_svm,
     test_features
   )
 
   # Create the confusion matrix
   confusion_matrix <- table(
-    Class = test_label,
+    Obs = test_label,
     Pred = factor(predicted_labels, levels = 0:9)
   )
 }
