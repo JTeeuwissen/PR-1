@@ -38,8 +38,5 @@ confusion_matrix <- SVM(
   test_label = test_set$label
 )
 
-# Print the confusion matrix
-print(confusion_matrix)
-
-# Compute accuracy on test data
-print(paste0("accuracy: ", sum(diag(confusion_matrix)) / sum(confusion_matrix)))
+# Print the confusion matrix and compute the accuracy
+print_confusion_matrix(confusion_matrix)

@@ -33,13 +33,13 @@ multinom <- function(train_features, train_labels, test_features, test_label) {
 
   # Create the confusion matrix
   confusion_matrix <- table(
-    Class = test_label,
-    Obs = factor(predicted_labels, levels = 0:9)
+    Obs = test_label,
+    Pred = factor(predicted_labels, levels = 0:9)
   )
 }
 
 # ink and rowchange (train and test set are the same)
-confusion_matrix <- multinom(
+confusion_matrix_ink_rowchange <- multinom(
   train_features = cbind(scale(ink), scale(row_change)),
   train_labels = data$label,
   test_features = cbind(scale(ink), scale(row_change)),
@@ -54,8 +54,6 @@ confusion_matrix <- multinom(
   test_label = test_set$label
 )
 
-# Print the confusion matrix
-print(confusion_matrix)
-
-# Compute accuracy on test data
-print(paste0("accuracy: ", sum(diag(confusion_matrix)) / sum(confusion_matrix)))
+# Print the confusion matrix and compute the accuracy
+print_confusion_matrix(confusion_matrix_ink_rowchange)
+print_confusion_matrix(confusion_matrix)
