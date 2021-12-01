@@ -18,10 +18,10 @@ row_change_function <- function(data) {
 }
 
 # Compute the total edge cost per sample.
-row_change <- apply(data[, -1], 1, row_change_function)
+row_change <- apply(data, 1, row_change_function)
 
 # Compute the mean value of edge for each digit.
-row_change_mean <- tapply(row_change, data$label, mean)
+row_change_mean <- tapply(row_change, labels, mean)
 
 # Compute the standard deviation of edge cost for each digit.
-row_change_sd <- tapply(row_change, data$label, sd)
+row_change_sd <- tapply(row_change, labels, sd)

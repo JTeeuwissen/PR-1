@@ -32,10 +32,10 @@ SVM <- function(train_features, train_labels, test_features, test_label) {
 }
 
 confusion_matrix <- SVM(
-  train_features = as.matrix(train_set[-1]),
-  train_labels = train_set$label,
-  test_features = as.matrix(test_set[-1]),
-  test_label = test_set$label
+  train_features = as.matrix(train_set),
+  train_labels = train_labels,
+  test_features = as.matrix(test_set),
+  test_label = test_labels
 )
 print_confusion_matrix(confusion_matrix)
 
@@ -43,8 +43,8 @@ print_confusion_matrix(confusion_matrix)
 # using all cells low resolution
 confusion_matrix_low <- SVM(
   train_features = as.matrix(train_set_low),
-  train_labels = train_set$label,
+  train_labels = train_labels,
   test_features = as.matrix(test_set_low),
-  test_label = test_set$label
+  test_label = test_labels
 )
 print_confusion_matrix(confusion_matrix_low)

@@ -60,4 +60,4 @@ print_image <- function(data) {
   image(matrix, col = grey(seq(1, 0, length = 256)), axes = FALSE)
 }
 
-print_image(data[380, -1])
+# print_image(data[380, ])

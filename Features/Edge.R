@@ -27,10 +27,10 @@ edge_function <- function(data) {
 }
 
 # Compute the total edge cost per sample.
-edge <- apply(data[, -1], 1, edge_function)
+edge <- apply(data, 1, edge_function)
 
 # Compute the mean value of edge for each digit.
-edge_mean <- tapply(edge, data$label, mean)
+edge_mean <- tapply(edge, labels, mean)
 
 # Compute the standard deviation of edge cost for each digit.
-edge_sd <- tapply(edge, data$label, sd)
+edge_sd <- tapply(edge, labels, sd)
