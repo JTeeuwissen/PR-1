@@ -8,11 +8,10 @@ row_to_matrix <- function(data) {
 #' Print all information about a confusion matrix
 #'
 #' @param m the confusion matrix
-print_confusion_matrix <- function(m)
-{
+print_confusion_matrix <- function(m) {
   # Print the confusion matrix
   print(m)
-  
+
   # Compute and print the accuracy
   print(paste0("accuracy: ", sum(diag(m)) / sum(m)))
 }

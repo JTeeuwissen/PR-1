@@ -2,7 +2,7 @@ library(e1071)
 
 #' Support Vector Machine Classifer
 #'
-#' @param train_features A matrix of features to train the model 
+#' @param train_features A matrix of features to train the model
 #' @param train_labels The corresponding vector of the train_features labels
 #' @param test_features A matrix of features to make predictions on the model
 #' @param test_label The corresponding vector of the test_features labels

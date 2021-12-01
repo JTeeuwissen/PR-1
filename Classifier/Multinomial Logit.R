@@ -1,9 +1,9 @@
 library(nnet)
 library(glmnet)
 
-#' Multinomial Logit Classifier 
+#' Multinomial Logit Classifier
 #'
-#' @param train_features A matrix of features to train the model 
+#' @param train_features A matrix of features to train the model
 #' @param train_labels The corresponding vector of the train_features labels
 #' @param test_features A matrix of features to make predictions on the model
 #' @param test_label The corresponding vector of the test_features labels
@@ -37,6 +37,14 @@ multinom <- function(train_features, train_labels, test_features, test_label) {
     Pred = factor(predicted_labels, levels = 0:9)
   )
 }
+
+# ink (train and test set are the same)
+confusion_matrix_ink <- multinom(
+  train_features = cbind(scale(ink), scale(ink)),
+  train_labels = data$label,
+  test_features = cbind(scale(ink), scale(ink)),
+  test_label = data$label
+)
 
 # ink and rowchange (train and test set are the same)
 confusion_matrix_ink_rowchange <- multinom(
