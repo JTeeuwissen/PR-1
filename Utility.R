@@ -1,9 +1,39 @@
+#' lower the resolution of the row
+#'
+#' @param data the row to lower the resolution of
+#' @param division the target resoltion
+lower_resolution <- function(data, division = 14) {
+  matrix <- row_to_matrix(data)
+  size <- nrow(matrix) / division
+
+  output <- matrix(, nrow = division, ncol = division)
+  for (x in 1:division) {
+    for (y in 1:division) {
+      output[x, y] <- mean(matrix[
+        c(size * (x - 1), size * (x)),
+        c(size * (y - 1), size * (y))
+      ])
+    }
+  }
+
+  matrix_to_row(output)
+}
+
 #' Turn a row into a matrix of pixel values
 #'
 #' @param data A data frame segment
 row_to_matrix <- function(data) {
-  matrix(as.numeric(data), nrow = 28, ncol = 28, byrow = TRUE)
+  size <- sqrt(length(data))
+  matrix(as.numeric(data), nrow = size, ncol = size, byrow = TRUE)
 }
+
+#' Turn a row into a matrix of pixel values
+#'
+#' @param data A data frame segment
+matrix_to_row <- function(row) {
+  as.vector(t(row))
+}
+
 
 #' Print all information about a confusion matrix
 #'

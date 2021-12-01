@@ -37,6 +37,14 @@ confusion_matrix <- SVM(
   test_features = as.matrix(test_set[-1]),
   test_label = test_set$label
 )
-
-# Print the confusion matrix and compute the accuracy
 print_confusion_matrix(confusion_matrix)
+
+
+# using all cells low resolution
+confusion_matrix_low <- SVM(
+  train_features = as.matrix(train_set_low),
+  train_labels = train_set$label,
+  test_features = as.matrix(test_set_low),
+  test_label = test_set$label
+)
+print_confusion_matrix(confusion_matrix_low)

@@ -45,6 +45,7 @@ confusion_matrix_ink <- multinom(
   test_features = cbind(scale(ink), scale(ink)),
   test_label = data$label
 )
+print_confusion_matrix(confusion_matrix_ink)
 
 # ink and rowchange (train and test set are the same)
 confusion_matrix_ink_rowchange <- multinom(
@@ -53,6 +54,7 @@ confusion_matrix_ink_rowchange <- multinom(
   test_features = cbind(scale(ink), scale(row_change)),
   test_label = data$label
 )
+print_confusion_matrix(confusion_matrix_ink_rowchange)
 
 # using all cells
 confusion_matrix <- multinom(
@@ -61,7 +63,13 @@ confusion_matrix <- multinom(
   test_features = as.matrix(test_set[-1]),
   test_label = test_set$label
 )
-
-# Print the confusion matrix and compute the accuracy
-print_confusion_matrix(confusion_matrix_ink_rowchange)
 print_confusion_matrix(confusion_matrix)
+
+# using all cells low resolution
+confusion_matrix_low <- multinom(
+  train_features = as.matrix(train_set_low),
+  train_labels = train_set$label,
+  test_features = as.matrix(test_set_low),
+  test_label = test_set$label
+)
+print_confusion_matrix(confusion_matrix_low)

@@ -8,6 +8,10 @@ data <- read.csv("mnist.csv")
 # Convert the label to a categorical variable.
 data$label <- as.factor(data$label)
 
+# Create low resolution digits.
+data_low <- t(apply(data[, -1], 1, lower_resolution))
+
+
 # Set seed
 set.seed(123)
 
@@ -15,9 +19,11 @@ set.seed(123)
 # Draw a random sample of size 5.000, and use this as the training set.
 train_set_indices <- sample(nrow(data), 5000)
 train_set <- data[train_set_indices, ]
+train_set_low <- data_low[train_set_indices, ]
 
 # Use the remaining 37.000 examples as the test set.
 test_set <- data[-train_set_indices, ]
+test_set_low <- data_low[-train_set_indices, ]
 
 # Compute the total ink cost per sample.
 ink <- rowSums(data[-1])
