@@ -16,11 +16,12 @@ neural_network <- function(train_features,
   df <- as.data.frame(train_features)
   df$label <- train_labels
 
+  # Should work, does not
   # Hyperparameter tuning
   train_nn <- e1071::tune.nnet(
-    label ~ .,
-    data = df,
-    size = 50,
+    train_features,
+    train_labels,
+    size = c(1, 30),
     MaxNWts = 10360
   )
 
