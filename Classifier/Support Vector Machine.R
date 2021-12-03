@@ -10,17 +10,21 @@ library(e1071)
 #' @return A confusion matrix
 SVM <- function(train_features, train_labels, test_features, test_label) {
 
-  # Train SVM with gamma=1/62 and cost=1 (default values)
-  train_svm <- svm(
+  # Train SVM with hyperparameter tuning on the cost param.
+  train_svm <- tune.svm(
     train_features,
     train_labels,
     kernel = "linear",
+    cost = 2^(-2:1),
     scale = F
   )
-
-  # Make predictions on the test set.
+  
+  # Debug
+  message(paste0("optimal cost-param value: ", train_svm$best.parameters))
+  
+  # Make predictions on the test set using the best trained model.
   predicted_labels <- predict(
-    train_svm,
+    train_svm$best.model,
     test_features
   )
 
