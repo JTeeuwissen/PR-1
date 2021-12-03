@@ -14,33 +14,32 @@ neural_network <- function(train_features,
                            test_features,
                            test_label) {
 
-  # TODO Hyperparameter tuning
-  tuned <- e1071::tune.nnet(
-    train_features,
-    train_labels,
-    size = 10,
-    MaxNWts = 7861
-  )
-  print(tuned)
-  return
+  # # TODO Hyperparameter tuning
+  # tuned <- e1071::tune.nnet(
+  #   train_features,
+  #   train_labels,
+  #   size = 10,
+  #   MaxNWts = 7861
+  # )
+
+
+  df <- as.data.frame(train_features)
+  df$label <- train_labels
 
   # Neural Network
-  train_nn <- nnet(
-    train_features,
-    train_labels,
-    # hidden = train_glmnet$lambda.min$lambda,
-    # activation = "tanh",
-    # algorithm = "lbfgs",
-    # maxit = 100,
-    # tol = 1e-6
+  train_nn <- nnet.formula(
+    label ~ .,
+    df,
+    size = 20,
+    MaxNWts = 10000,
+    maxit = 1000
   )
 
   # Make predictions on the test set.
   predicted_labels <- predict(
     train_nn,
     test_features,
-    # s = lambda,
-    # type = "class"
+    type = "class"
   )
 
   # Create the confusion matrix
@@ -50,14 +49,20 @@ neural_network <- function(train_features,
   )
 }
 
-
 # using all cells
 confusion_matrix <- neural_network(
-  train_features = as.matrix(train_set),
+  train_features = train_set,
   train_labels = train_labels,
-  test_features = as.matrix(test_set),
+  test_features = test_set,
   test_label = test_labels
 )
-
-# Print the confusion matrix and compute the accuracy
 print_confusion_matrix(confusion_matrix)
+
+# using all cells low resolution
+confusion_matrix_low <- neural_network(
+  train_features = train_set_low,
+  train_labels = train_labels,
+  test_features = test_set_low,
+  test_label = test_labels
+)
+print_confusion_matrix(confusion_matrix_low)
