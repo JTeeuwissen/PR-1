@@ -13,31 +13,29 @@ neural_network <- function(train_features,
                            train_labels,
                            test_features,
                            test_label) {
-
-  # # TODO Hyperparameter tuning
-  # tuned <- e1071::tune.nnet(
-  #   train_features,
-  #   train_labels,
-  #   size = 10,
-  #   MaxNWts = 7861
-  # )
-
-
   df <- as.data.frame(train_features)
   df$label <- train_labels
 
-  # Neural Network
-  train_nn <- nnet.formula(
+  # Hyperparameter tuning
+  train_nn <- e1071::tune.nnet(
     label ~ .,
-    df,
-    size = 20,
-    MaxNWts = 10000,
-    maxit = 1000
+    data = df,
+    size = 50,
+    MaxNWts = 10360
   )
+
+  # # Neural Network
+  # train_nn <- nnet.formula(
+  #   label ~ .,
+  #   df,
+  #   size = 50,
+  #   MaxNWts = 100000,
+  #   maxit = 100
+  # )
 
   # Make predictions on the test set.
   predicted_labels <- predict(
-    train_nn,
+    train_nn$best.model,
     test_features,
     type = "class"
   )

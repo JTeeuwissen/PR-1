@@ -18,10 +18,10 @@ SVM <- function(train_features, train_labels, test_features, test_label) {
     cost = 2^(-2:1),
     scale = F
   )
-  
+
   # Debug
   message(paste0("optimal cost-param value: ", train_svm$best.parameters))
-  
+
   # Make predictions on the test set using the best trained model.
   predicted_labels <- predict(
     train_svm$best.model,
