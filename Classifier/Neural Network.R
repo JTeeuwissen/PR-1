@@ -58,7 +58,7 @@ confusion_matrix <- neural_network(
   test_label = test_labels
 
 )
-#print_confusion_matrix(confusion_matrix)
+print_confusion_matrix(confusion_matrix)
 
 # using all cells low resolution
 confusion_matrix_low <- neural_network(
