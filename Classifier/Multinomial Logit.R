@@ -13,7 +13,7 @@ multinom <- function(train_features, train_labels, test_features, test_label) {
 
   # Multinominal Logit with lasso penalty
   train_glmnet <- cv.glmnet(
-    train_features,
+    as.matrix(train_features),
     train_labels,
     family = "multinomial",
     type.measure = "class"
@@ -26,7 +26,7 @@ multinom <- function(train_features, train_labels, test_features, test_label) {
   # Make predictions on the test set.
   predicted_labels <- predict(
     train_glmnet,
-    test_features,
+    as.matrix(test_features),
     s = lambda,
     type = "class"
   )
