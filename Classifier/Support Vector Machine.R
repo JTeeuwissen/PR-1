@@ -15,7 +15,7 @@ SVM <- function(train_features, train_labels, test_features, test_label) {
     train_features,
     train_labels,
     kernel = "linear",
-    cost = 2^(-2:1),
+    cost = 2^(-2:7),
     scale = F
   )
 
