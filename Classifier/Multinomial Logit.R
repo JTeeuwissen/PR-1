@@ -39,37 +39,28 @@ multinom <- function(train_features, train_labels, test_features, test_label) {
 }
 
 # ink (train and test set are the same)
-confusion_matrix_ink <- multinom(
-  train_features = cbind(scale(ink), scale(ink)),
-  train_labels = labels,
-  test_features = cbind(scale(ink), scale(ink)),
-  test_label = labels
-)
-print_confusion_matrix(confusion_matrix_ink)
+#confusion_matrix_ink <- multinom(
+#  train_features = cbind(scale(ink), scale(ink)),
+#  train_labels = labels,
+#  test_features = cbind(scale(ink), scale(ink)),
+#  test_label = labels
+#)
+#print_confusion_matrix(confusion_matrix_ink)
 
 # ink and rowchange (train and test set are the same)
-confusion_matrix_ink_rowchange <- multinom(
-  train_features = cbind(scale(ink), scale(row_change)),
-  train_labels = labels,
-  test_features = cbind(scale(ink), scale(row_change)),
-  test_label = labels
-)
-print_confusion_matrix(confusion_matrix_ink_rowchange)
-
-# using all cells
-confusion_matrix <- multinom(
-  train_features = train_set,
-  train_labels = train_labels,
-  test_features = test_set,
-  test_label = test_labels
-)
-print_confusion_matrix(confusion_matrix)
+#confusion_matrix_ink_rowchange <- multinom(
+#  train_features = cbind(scale(ink), scale(row_change)),
+#  train_labels = labels,
+#  test_features = cbind(scale(ink), scale(row_change)),
+#  test_label = labels
+#)
+#print_confusion_matrix(confusion_matrix_ink_rowchange)
 
 # using all cells low resolution
-confusion_matrix_low <- multinom(
-  train_features = train_set_low,
-  train_labels = train_labels,
-  test_features = test_set_low,
-  test_label = test_labels
-)
-print_confusion_matrix(confusion_matrix_low)
+#confusion_matrix_low <- multinom(
+#  train_features = train_set_low,
+#  train_labels = train_labels,
+#  test_features = test_set_low,
+#  test_label = test_labels
+#)
+#print_confusion_matrix(confusion_matrix_low)

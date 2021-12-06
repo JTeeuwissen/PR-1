@@ -1,4 +1,37 @@
 library(e1071)
+library(caret)
+library(doParallel)
+
+#' Hyperparameter tuning for SVM
+#'
+#' @param train_features 
+#' @param train_labels 
+#'
+#' @return SVM with cost-value that gives the smallest cross-validation error
+costTuning <- function(train_features, train_labels){
+  
+  # Set up training parameters
+  TrainingParameters <- trainControl(method = "cv", number = 10)
+  
+  # Enable parallel processing
+  cl <- makeCluster(detectCores() - 1)
+  registerDoParallel(cl)
+  
+  # Train SVM with hyperparameter tuning on the cost param.
+  tune_svm <- train(
+    train_features,
+    train_labels,
+    trControl= TrainingParameters,
+    method = "svmLinear2",
+    tuneGrid = expand.grid(cost = seq(0.1, 2, length = 14)),
+    scale = F
+  )
+  
+  # Disable parallel processing
+  stopCluster(cl)
+  
+  return(tune_svm)
+}
 
 #' Support Vector Machine Classifer
 #'
@@ -9,22 +42,13 @@ library(e1071)
 #'
 #' @return A confusion matrix
 SVM <- function(train_features, train_labels, test_features, test_label) {
-
-  # Train SVM with hyperparameter tuning on the cost param.
-  train_svm <- tune.svm(
-    train_features,
-    train_labels,
-    kernel = "linear",
-    cost = 2^(-2:7),
-    scale = F
-  )
-
-  # Debug
-  message(paste0("optimal cost-param value: ", train_svm$best.parameters))
-
+  
+  # Train SVM using the optimal cost-value
+  train_svm <- costTuning(train_features, train_labels)
+  
   # Make predictions on the test set using the best trained model.
   predicted_labels <- predict(
-    train_svm$best.model,
+    train_svm,
     test_features
   )
 
@@ -35,20 +59,19 @@ SVM <- function(train_features, train_labels, test_features, test_label) {
   )
 }
 
-confusion_matrix <- SVM(
-  train_features = train_set,
-  train_labels = train_labels,
-  test_features = test_set,
-  test_label = test_labels
-)
-print_confusion_matrix(confusion_matrix)
-
+#confusion_matrix <- SVM(
+# train_features = train_set,
+#  train_labels = train_labels,
+#  test_features = test_set,
+#  test_label = test_labels
+#)
+#print_confusion_matrix(confusion_matrix)
 
 # using all cells low resolution
-confusion_matrix_low <- SVM(
-  train_features = train_set_low,
-  train_labels = train_labels,
-  test_features = test_set_low,
-  test_label = test_labels
-)
-print_confusion_matrix(confusion_matrix_low)
+#confusion_matrix_low <- SVM(
+#  train_features = train_set_low,
+#  train_labels = train_labels,
+#  test_features = test_set_low,
+#  test_label = test_labels
+#)
+#print_confusion_matrix(confusion_matrix_low)

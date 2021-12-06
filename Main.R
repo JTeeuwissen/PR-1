@@ -13,10 +13,7 @@ labels <- as.factor(csv$label)
 
 # Create low resolution digits.
 data_low <- t(apply(data, 1, lower_resolution))
-
-
-# Set seed
-set.seed(123)
+colnames(data_low) <- 1:ncol(data_low)
 
 # Draw a random sample of size 5.000, and use this as the training set.
 train_set_indices <- sample(nrow(data), 5000)

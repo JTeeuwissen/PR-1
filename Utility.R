@@ -34,6 +34,13 @@ matrix_to_row <- function(row) {
   as.vector(t(row))
 }
 
+#' Compute the accuracy of the confusion matrix
+#'
+#' @param m the confusion matrix
+accuracy <- function(m)
+{
+  sum(diag(m)) / sum(m)
+}
 
 #' Print all information about a confusion matrix
 #'
@@ -43,7 +50,7 @@ print_confusion_matrix <- function(m) {
   print(m)
 
   # Compute and print the accuracy
-  print(paste0("accuracy: ", sum(diag(m)) / sum(m)))
+  print(paste0("accuracy: ", accuracy(m)))
 }
 
 #' Print an image from a data frame segment
