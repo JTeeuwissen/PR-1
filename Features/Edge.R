@@ -3,10 +3,9 @@
 #' @param data A matrix of pixel values.
 edge_function <- function(data) {
   matrix <- row_to_matrix(data)
-
   total <- 0
-  for (row in 2:nrow(matrix) - 1) {
-    for (col in 2:ncol(matrix) - 1) {
+  for (row in 2:(nrow(matrix) - 1)) {
+    for (col in 2:(ncol(matrix) - 1)) {
       kernel <- sum(
         matrix[row - 1, col - 1],
         matrix[row - 1, col],
