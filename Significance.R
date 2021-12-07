@@ -48,5 +48,5 @@ for (i in 0:100) {
   )
   
   # Compute the accuracies and write it to the "Output" file
-  write_accuracies_csv(cm_multinom, cm_svm, cm_nn, "Output.csv")
+  write_accuracies_csv(cm_multinom, cm_svm, cm_nn, "Output/Results.csv")
 }
